@@ -1,0 +1,103 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+/* Image styles */
+.cart-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Quantity decrease icon styles */
+.qty-decrease {
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Remove button styles */
+.remove {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.remove:hover {
+  background-color: #d32f2f;
+}
+
+/* Quantity input styles */
+.qty {
+  margin: 0 15px;
+  font-size: 18px;
+}
+
+/* Total amount styles */
+.total {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 500;
+}
+
+/* Checkout text styles */
+.checkout-text {
+  font-size: 26px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Table wrapper styles */
+.table-wrapper {
+  overflow: auto;
+  max-width: 100%;
+}
+
+/* Media queries */
+@media (max-width: 767px) {
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  /* Adjustments for smaller screens */
+  img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .qty-decrease {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 559px) {
+  /* Adjustments for even smaller screens */
+  .qty-decrease,
+  .qty {
+    display: inline-block;
+    margin: 10px 2px;
+  }
+
+  .qty {
+    font-size: 14px;
+  }
+}

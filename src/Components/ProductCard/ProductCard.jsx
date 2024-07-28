@@ -1,6 +1,30 @@
 import React from "react";
+import { useAddToCartMutation } from "../../Hooks/useProducts";
+import Swal from "sweetalert2";
 
 const bookCard = ({ book }) => {
+  const [addToCart] = useAddToCartMutation();
+
+  const handleAddToCart = async () => {
+    try {
+      await addToCart({
+        bookId: book.id,
+        quantity: 1,
+        bookName: book.book_name,
+        price: book.price,
+      }).unwrap();
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Book added to your cart",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      console.error("Failed to add product to cart: ", error);
+      alert("Failed to add product to cart.");
+    }
+  };
   return (
     <div
       key={book.id}
@@ -22,7 +46,10 @@ const bookCard = ({ book }) => {
           Writer Name : ${book.writer_name}
         </h4>
         <div className="mt-4">
-          <button className="bg-[#E8E8E8] text-[#BB8506] uppercase border-b-2 border-[#BB8506] px-5 py-2 text-lg font-medium">
+          <button
+            onClick={handleAddToCart}
+            className="bg-[#E8E8E8] text-[#BB8506] uppercase border-b-2 border-[#BB8506] px-5 py-2 text-lg font-medium"
+          >
             Add to Cart
           </button>
         </div>

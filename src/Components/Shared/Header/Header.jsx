@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
+import { useGetCartQuery } from "../../../Hooks/useProducts";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: carts } = useGetCartQuery();
+  console.log(carts);
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -46,10 +49,14 @@ const Header = () => {
                   className="flex justify-center items-center"
                 >
                   <button className="btn relative">
-                    <FaShoppingCart className="text-2xl text-white" />
-                    <div className=" absolute top-[-20px] left-[10px] bg-white w-7 h-7 rounded-full">
-                      <p className="text-lg font-semibold">0</p>
-                    </div>
+                    <Link to="/myCart">
+                      <FaShoppingCart className="text-2xl text-white" />
+                      <div className=" absolute top-[-20px] left-[10px] bg-white w-7 h-7 rounded-full">
+                        <p className="text-lg font-semibold">
+                          {carts?.length || 0}
+                        </p>
+                      </div>
+                    </Link>
                   </button>
                 </NavLink>
               </div>
