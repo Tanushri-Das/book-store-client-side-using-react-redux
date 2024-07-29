@@ -51,7 +51,7 @@ const MyCart = () => {
     await deleteFromCart(id);
     Swal.fire({
       title: "Deleted!",
-      text: "Delete product from cart.",
+      text: "Delete book from cart.",
       icon: "success",
       timer: 1500,
     });
