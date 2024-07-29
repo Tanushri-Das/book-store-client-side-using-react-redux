@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
-import { useGetCartQuery } from "../../../Hooks/useProducts";
+import {
+  useGetCartQuery,
+  useGetWishlistQuery,
+} from "../../../Hooks/useProducts";
+import { FaBell } from "react-icons/fa6";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { data: carts } = useGetCartQuery();
-  console.log(carts);
+  const { data: wishlists } = useGetWishlistQuery();
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -54,6 +58,21 @@ const Header = () => {
                       <div className=" absolute top-[-20px] left-[10px] bg-white w-7 h-7 rounded-full">
                         <p className="text-lg font-semibold">
                           {carts?.length || 0}
+                        </p>
+                      </div>
+                    </Link>
+                  </button>
+                </NavLink>
+                <NavLink
+                  to="/dashboard/mycart"
+                  className="flex justify-center items-center ps-5"
+                >
+                  <button className="btn relative">
+                    <Link to="/myCart">
+                      <FaBell className="text-2xl text-white" />
+                      <div className=" absolute top-[-20px] left-[10px] bg-white w-7 h-7 rounded-full">
+                        <p className="text-lg font-semibold">
+                          {wishlists?.length || 0}
                         </p>
                       </div>
                     </Link>

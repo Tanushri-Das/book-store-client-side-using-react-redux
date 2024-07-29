@@ -1,14 +1,19 @@
 import React from "react";
-import { useAddToCartMutation } from "../../Hooks/useProducts";
+import {
+  useAddToCartMutation,
+  useAddToWishlistMutation,
+} from "../../Hooks/useProducts";
 import Swal from "sweetalert2";
 
-const bookCard = ({ book }) => {
+const BookCard = ({ book, onAddToCart, onAddToWishlist }) => {
   const [addToCart] = useAddToCartMutation();
+  const [addToWishlist] = useAddToWishlistMutation();
 
   const handleAddToCart = async () => {
     try {
       await addToCart({
         bookId: book.id,
+        bookImage: book.image,
         quantity: 1,
         bookName: book.book_name,
         price: book.price,
@@ -20,11 +25,35 @@ const bookCard = ({ book }) => {
         showConfirmButton: false,
         timer: 1500,
       });
+      onAddToCart(); // Call the callback to refetch cart
     } catch (error) {
       console.error("Failed to add product to cart: ", error);
       alert("Failed to add product to cart.");
     }
   };
+  const handleAddToWishlist = async () => {
+    try {
+      await addToWishlist({
+        bookId: book.id,
+        bookImage: book.image,
+        quantity: 1,
+        bookName: book.book_name,
+        price: book.price,
+      }).unwrap();
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Book added to your wishlist",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      onAddToWishlist(); // Call the callback to refetch Wishlist
+    } catch (error) {
+      console.error("Failed to add product to wishlist: ", error);
+      alert("Failed to add product to wishlist.");
+    }
+  };
+  
   return (
     <div
       key={book.id}
@@ -45,12 +74,18 @@ const bookCard = ({ book }) => {
         <h4 className="text-black text-lg font-medium mb-3">
           Writer Name : ${book.writer_name}
         </h4>
-        <div className="mt-4">
+        <div className="mt-4 ">
           <button
             onClick={handleAddToCart}
-            className="bg-[#E8E8E8] text-[#BB8506] uppercase border-b-2 border-[#BB8506] px-5 py-2 text-lg font-medium"
+            className="bg-[#E8E8E8] text-[#BB8506] border-b-2 border-[#BB8506] px-5 py-2 text-lg font-medium"
           >
             Add to Cart
+          </button>
+          <button
+            onClick={handleAddToWishlist}
+            className="bg-[#E8E8E8] ms-3 text-[#BB8506] border-b-2 border-[#BB8506] px-5 py-2 text-lg font-medium"
+          >
+            Add to Wishlist
           </button>
         </div>
       </div>
@@ -58,4 +93,4 @@ const bookCard = ({ book }) => {
   );
 };
 
-export default bookCard;
+export default BookCard;

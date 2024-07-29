@@ -108,6 +108,7 @@ const MyCart = () => {
                     >
                       <FaTrashAlt />
                     </button>
+                    
                   </td>
                 </tr>
               ))}
