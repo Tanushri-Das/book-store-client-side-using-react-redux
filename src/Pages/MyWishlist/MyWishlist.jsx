@@ -11,13 +11,17 @@ import Swal from "sweetalert2";
 
 const MyWishlist = () => {
   const { data: wishlists, refetch } = useGetWishlistQuery();
+  const { data: cartItems, refetch: refetchCart } = useGetCartQuery();
   const [deleteFromWishlist] = useDeleteFromWishlistMutation();
   const [addToCart] = useAddToCartMutation();
-  const { refetch: refetchCart } = useGetCartQuery();
 
-  if (!wishlists) {
+  if (!wishlists || !cartItems) {
     return <div>Loading...</div>; // Add a loading indicator or handle loading state
   }
+
+  const isInCart = (bookId) => {
+    return cartItems.some(item => item.bookId === bookId);
+  };
 
   const handleDelete = async (id) => {
     try {
@@ -40,6 +44,16 @@ const MyWishlist = () => {
   };
 
   const handleAddToCart = async (item) => {
+    if (isInCart(item._id)) {
+      Swal.fire({
+        title: "Already in Cart!",
+        text: "This item is already in your cart",
+        icon: "info",
+        timer: 1500,
+      });
+      return;
+    }
+
     try {
       await addToCart({
         bookId: item._id,
@@ -55,7 +69,7 @@ const MyWishlist = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-      refetchCart(); // Call the callback to refetch cart
+      refetchCart(); // Refetch the cart data to update the cart count
     } catch (error) {
       console.error("Failed to add product to cart: ", error);
       Swal.fire({
@@ -68,7 +82,7 @@ const MyWishlist = () => {
 
   return (
     <div className="m-20">
-      <h2 className="text-2xl font-semibold text-center">My Wishlist</h2>
+      <h2 className="text-2xl font-semibold text-center mb-6">My Wishlist</h2>
       <div className="overflow-x-auto table-container">
         <div className="w-full mx-auto">
           <table className="table text-center">
