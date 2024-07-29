@@ -68,7 +68,7 @@ const Header = () => {
                   className="flex justify-center items-center ps-5"
                 >
                   <button className="btn relative">
-                    <Link to="/myCart">
+                    <Link to="/myWishlists">
                       <FaBell className="text-2xl text-white" />
                       <div className=" absolute top-[-20px] left-[10px] bg-white w-7 h-7 rounded-full">
                         <p className="text-lg font-semibold">

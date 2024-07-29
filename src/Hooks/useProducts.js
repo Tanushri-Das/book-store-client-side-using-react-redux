@@ -40,6 +40,13 @@ export const productsApi = createApi({
     getWishlist: builder.query({
       query: () => "/wishlists",
     }),
+    // Define an endpoint to delete a Wishlist item
+    deleteFromWishlist: builder.mutation({
+      query: (id) => ({
+        url: `wishlists/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -51,6 +58,7 @@ export const {
   useDeleteFromCartMutation,
   useAddToWishlistMutation,
   useGetWishlistQuery,
+  useDeleteFromWishlistMutation,
 } = productsApi;
 
 // Create a custom hook that uses the generated hook

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDeleteFromCartMutation, useGetCartQuery } from "../../Hooks/useProducts";
+import {
+  useDeleteFromCartMutation,
+  useGetCartQuery,
+} from "../../Hooks/useProducts";
 import "./MyCart.css";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaCircleMinus, FaCirclePlus } from "react-icons/fa6";
@@ -48,7 +51,7 @@ const MyCart = () => {
     await deleteFromCart(id);
     Swal.fire({
       title: "Deleted!",
-      text: "Your file has been deleted.",
+      text: "Delete product from cart.",
       icon: "success",
       timer: 1500,
     });
@@ -56,7 +59,8 @@ const MyCart = () => {
   };
   return (
     <div className="m-20">
-      <div className="grid grid-cols-3 mb-6">
+      <h2 className="text-2xl font-semibold text-center">My Cart</h2>
+      <div className="flex justify-between items-center mt-5 mb-3">
         <h2 className="text-2xl font-semibold">
           Total Orders : {carts?.length || 0}
         </h2>
@@ -64,6 +68,8 @@ const MyCart = () => {
           Total Price : ${totalPrice.toFixed(2)}
         </h2>
       </div>
+
+      <div className="grid grid-cols-3 mb-6"></div>
       <div className="overflow-x-auto table-container">
         <div className="w-full mx-auto">
           <table className="table text-center">
@@ -108,7 +114,6 @@ const MyCart = () => {
                     >
                       <FaTrashAlt />
                     </button>
-                    
                   </td>
                 </tr>
               ))}
