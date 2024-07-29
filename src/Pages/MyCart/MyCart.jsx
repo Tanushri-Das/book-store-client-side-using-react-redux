@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useGetCartQuery } from "../../Hooks/useProducts";
+import { useDeleteFromCartMutation, useGetCartQuery } from "../../Hooks/useProducts";
 import "./MyCart.css";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaCircleMinus, FaCirclePlus } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
 const MyCart = () => {
-  const { data: carts } = useGetCartQuery();
+  const { data: carts, refetch } = useGetCartQuery();
   const [quantities, setQuantities] = useState({});
+  const [deleteFromCart] = useDeleteFromCartMutation();
 
   useEffect(() => {
     if (carts) {
@@ -42,6 +44,16 @@ const MyCart = () => {
     (acc, item) => acc + item.price * quantities[item._id],
     0
   );
+  const handleDelete = async (id) => {
+    await deleteFromCart(id);
+    Swal.fire({
+      title: "Deleted!",
+      text: "Your file has been deleted.",
+      icon: "success",
+      timer: 1500,
+    });
+    refetch(); // Refetch the cart data after deletion
+  };
   return (
     <div className="m-20">
       <div className="grid grid-cols-3 mb-6">
@@ -90,7 +102,10 @@ const MyCart = () => {
                     ${(item.price * quantities[item._id]).toFixed(2)}
                   </td>
                   <td className="action text-sm md:text-[16px]">
-                    <button className="delete-btn">
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(item._id)}
+                    >
                       <FaTrashAlt />
                     </button>
                   </td>
