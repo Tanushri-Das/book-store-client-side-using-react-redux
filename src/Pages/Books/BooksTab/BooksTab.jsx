@@ -1,11 +1,8 @@
 import React from "react";
 import BookCard from "../../../Components/BookCard/BookCard";
-import {
-  useGetCartQuery,
-  useGetWishlistQuery,
-} from "../../../Hooks/useProducts";
+import { useGetCartQuery, useGetWishlistQuery } from "../../../features/api/apiSlice";
 
-const ProductsTab = ({ books }) => {
+const BooksTab = ({ books }) => {
   const { refetch: refetchCart } = useGetCartQuery();
   const { refetch: refetchWishlist } = useGetWishlistQuery();
 
@@ -23,4 +20,4 @@ const ProductsTab = ({ books }) => {
   );
 };
 
-export default ProductsTab;
+export default BooksTab;

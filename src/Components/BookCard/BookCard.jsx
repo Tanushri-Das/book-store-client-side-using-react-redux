@@ -1,9 +1,9 @@
 import React from "react";
+import Swal from "sweetalert2";
 import {
   useAddToCartMutation,
   useAddToWishlistMutation,
-} from "../../Hooks/useProducts";
-import Swal from "sweetalert2";
+} from "../../features/api/apiSlice";
 
 const BookCard = ({ book, onAddToCart, onAddToWishlist }) => {
   const [addToCart] = useAddToCartMutation();
@@ -53,7 +53,7 @@ const BookCard = ({ book, onAddToCart, onAddToWishlist }) => {
       alert("Failed to add product to wishlist.");
     }
   };
-  
+
   return (
     <div
       key={book.id}

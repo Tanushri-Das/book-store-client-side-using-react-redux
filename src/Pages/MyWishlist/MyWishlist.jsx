@@ -1,13 +1,8 @@
 import React from "react";
-import {
-  useAddToCartMutation,
-  useDeleteFromWishlistMutation,
-  useGetCartQuery,
-  useGetWishlistQuery,
-} from "../../Hooks/useProducts";
 import "../MyCart/MyCart.css";
 import { FaShoppingCart, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { useAddToCartMutation, useDeleteFromWishlistMutation, useGetCartQuery, useGetWishlistQuery } from "../../features/api/apiSlice";
 
 const MyWishlist = () => {
   const { data: wishlists, refetch } = useGetWishlistQuery();
@@ -28,7 +23,7 @@ const MyWishlist = () => {
       await deleteFromWishlist(id).unwrap();
       Swal.fire({
         title: "Deleted!",
-        text: "Product removed from wishlist",
+        text: "Book removed from wishlist",
         icon: "success",
         timer: 1500,
       });
@@ -71,10 +66,10 @@ const MyWishlist = () => {
       });
       refetchCart(); // Refetch the cart data to update the cart count
     } catch (error) {
-      console.error("Failed to add product to cart: ", error);
+      console.error("Failed to add book to cart: ", error);
       Swal.fire({
         title: "Error!",
-        text: "Failed to add product to cart",
+        text: "Failed to add book to cart",
         icon: "error",
       });
     }

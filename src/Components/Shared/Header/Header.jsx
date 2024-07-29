@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
+import { FaBell } from "react-icons/fa6";
 import {
   useGetCartQuery,
   useGetWishlistQuery,
-} from "../../../Hooks/useProducts";
-import { FaBell } from "react-icons/fa6";
+} from "../../../features/api/apiSlice";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +27,7 @@ const Header = () => {
             to="/"
             className="mr-10 text-xl lg:text-3xl text-white font-mono font-bold flex-shrink-0"
           >
-            Groceries
+            Books
           </NavLink>
           <div className="flex justify-center items-center">
             <div className="hidden lg:block ml-auto">
@@ -36,18 +36,11 @@ const Header = () => {
                   Home
                 </NavLink>
                 <NavLink
-                  to="/products"
-                  className="links text-white text-xl font-bold ps-5"
+                  to="/books"
+                  className="links text-white text-xl font-bold px-5"
                 >
-                  Products
+                  Books
                 </NavLink>
-                <NavLink
-                  to="/order"
-                  className="link text-xl text-white font-bold px-5"
-                >
-                  Order food
-                </NavLink>
-
                 <NavLink
                   to="/dashboard/mycart"
                   className="flex justify-center items-center"
@@ -141,16 +134,10 @@ const Header = () => {
             </NavLink>
             <NavLink
               onClick={closeNavbar}
-              to="/products"
+              to="/books"
               className="link text-xl text-white px-3 pb-3 font-bold block"
             >
-              Products
-            </NavLink>
-            <NavLink
-              to="/order"
-              className="text-xl text-white px-3 pb-6 font-bold block"
-            >
-              Order food
+              Books
             </NavLink>
           </div>
         </div>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  useDeleteFromCartMutation,
-  useGetCartQuery,
-} from "../../Hooks/useProducts";
 import "./MyCart.css";
 import { FaTrashAlt } from "react-icons/fa";
 import { FaCircleMinus, FaCirclePlus } from "react-icons/fa6";
 import Swal from "sweetalert2";
+import {
+  useDeleteFromCartMutation,
+  useGetCartQuery,
+} from "../../features/api/apiSlice";
 
 const MyCart = () => {
   const { data: carts, refetch } = useGetCartQuery();
